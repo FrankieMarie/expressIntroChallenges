@@ -9,14 +9,14 @@ app.get('/yourroute', function(req, res) {
 
 app.post('/create/:name/:age', function(req, res) {
   let obj = {
-    "name": "troy",
-    "age": 20
+    "name": `${req.params.name}`,
+    "age": `${req.params.age}`
   }
-  //obj = res.json(obj);
-fs.writeFileSync('./storage.json', res.json(obj), (err) => {
-  if (err) throw err;
-  console.log('object saved!');
-});
+  let output = fs.readFileSync('./storage.json')
+  output = JSON.parse(output)
+  output.push(obj)
+  fs.writeFileSync('./storage.json', JSON.stringify(output));
+  res.json(output)
 })
 
 app.use(function(req, res) {
