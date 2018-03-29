@@ -1,6 +1,7 @@
-let express = require('express');
-let app = express();
-let port = process.env.PORT || 8000;
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 8000;
+const path = require('path');
 
 app.get('/yourroute', function(req, res) {
   res.send("stuff");
@@ -11,7 +12,10 @@ app.get('/hello', function(req, res) {
 });
 
 app.post('/create/:name', function(req, res) {
-  let obj = `${req.params.name}`;
+  let obj = {
+    "id":1,
+    "name":`${req.params.name}`
+  }
   res.json(obj);
 })
 
@@ -26,7 +30,6 @@ app.get('/verify/:age', function(req, res) {
   }else{
     res.status(403).render();
   }
-
 });
 
 app.use(function(req, res) {
